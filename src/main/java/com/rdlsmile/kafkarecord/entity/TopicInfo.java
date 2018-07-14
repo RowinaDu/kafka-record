@@ -36,4 +36,13 @@ public class TopicInfo {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    @Override
+    public String toString() {
+        return "TopicInfo{" +
+                "id=" + id +
+                ", topicName='" + topicName + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

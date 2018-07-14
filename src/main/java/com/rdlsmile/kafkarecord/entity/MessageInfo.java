@@ -46,4 +46,14 @@ public class MessageInfo {
     public void setReceiveTime(Date receiveTime) {
         this.receiveTime = receiveTime;
     }
+
+    @Override
+    public String toString() {
+        return "MessageInfo{" +
+                "id=" + id +
+                ", topicInfoId=" + topicInfoId +
+                ", message='" + message + '\'' +
+                ", receiveTime=" + receiveTime +
+                '}';
+    }
 }

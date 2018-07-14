@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestConsumer {
 
-    Logger LOG = LoggerFactory.getLogger("TestConsumer");
+    Logger LOG = LoggerFactory.getLogger(TestConsumer.class);
 
     /**
     * @Description: 监听消息内容
