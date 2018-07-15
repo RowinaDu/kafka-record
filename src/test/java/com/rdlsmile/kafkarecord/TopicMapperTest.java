@@ -34,12 +34,12 @@ public class TopicMapperTest {
 
     @Test
     public void addTopicInfoTest() {
-        topicMapper.addTopicInfo("TEST", new Date());
+        topicMapper.addTopicInfo(2L,"TEST", new Date());
     }
 
     @Test
     public void addMessageInfoTest() {
-        topicMapper.addMessageInfo(1L, "TEST", new Date());
+        topicMapper.addMessageInfo(3L,1L, "TEST", new Date());
     }
 
     @Test
