@@ -62,5 +62,10 @@ public class TopicMapperTest {
         System.out.println(messageInfos);
     }
 
+    @Test
+    public void findTop10MessageInfoByTopicInfoIdTest(){
+        List<MessageInfo> messageInfos = topicMapper.findTop10MessageInfoByTopicInfoId(1L);
+        System.out.println(messageInfos.size());
+    }
 
 }

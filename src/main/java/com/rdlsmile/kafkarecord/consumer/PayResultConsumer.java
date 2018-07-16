@@ -17,8 +17,8 @@ import java.util.Date;
 @Component
 public class PayResultConsumer {
 
-    Logger LOG = LoggerFactory.getLogger(PayResultConsumer.class);
-    private final String topicName = "pay_result_topic";
+    private Logger LOG = LoggerFactory.getLogger(PayResultConsumer.class);
+    private final String topicName = "test";
     private Long topicInfoId;
     private SnowflakeIdWorker snowflakeIdWorker;
     private Boolean isInit = false;
@@ -37,6 +37,7 @@ public class PayResultConsumer {
             topicMapper.addTopicInfo(topicInfoId, topicName, new Date());
             LOG.info("该topic不存在，新建记录id为{}", topicInfoId);
         }
+        isInit = true;
         LOG.info("初始化完成，当前topic为{}，对应id为{}", topicName, topicInfoId);
     }
 
@@ -44,7 +45,6 @@ public class PayResultConsumer {
     public void consumer(String message) {
         if (!isInit) {
             init();
-            isInit = true;
         }
         topicMapper.addMessageInfo(snowflakeIdWorker.nextId(), topicInfoId, message, new Date());
         LOG.info("接收到topicName={}的消息，消息体为{},记录成功。", topicName, message);

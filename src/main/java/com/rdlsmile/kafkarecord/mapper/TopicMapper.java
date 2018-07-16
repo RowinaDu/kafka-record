@@ -28,6 +28,14 @@ public interface TopicMapper {
             " FROM topic_info WHERE id = #{id}")
     TopicInfo findTopicInfoById(@Param("id") Long id);
 
+    /*查询所有的topic*/
+    @Select("SELECT " +
+            " id as id," +
+            " topic_name as topicName," +
+            " create_time as createTime " +
+            " FROM topic_info ")
+    List<TopicInfo> findTopicInfoList();
+
     /*根据topicName查询topic*/
     @Select("SELECT " +
             " id as id," +
@@ -45,6 +53,15 @@ public interface TopicMapper {
             " receive_time as receiveTime " +
             " FROM message_info WHERE topic_info_id = #{topicInfoId}")
     List<MessageInfo> findMessageInfoByTopicInfoId(@Param("topicInfoId") Long topicInfoId);
+
+    /*根据topicInfoId查询前10条消息*/
+    @Select("SELECT " +
+            " id as id, " +
+            " topic_info_id as topicInfoId, " +
+            " message as message, " +
+            " receive_time as receiveTime " +
+            " FROM message_info WHERE topic_info_id = #{topicInfoId} ORDER BY receive_time DESC LIMIT 0,10")
+    List<MessageInfo> findTop10MessageInfoByTopicInfoId(@Param("topicInfoId") Long topicInfoId);
 
     /*插入topicInfo*/
     @Insert("INSERT INTO topic_info (id, topic_name, create_time) VALUES (#{id}, #{topicName}, #{createTime})")
