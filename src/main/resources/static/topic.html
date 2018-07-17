@@ -41,7 +41,7 @@
                 success: function (data) {
                     console.log(data);
                     for(var i =0; i< data.length; i++){
-                        var sul = '<li class="showTopic"><a>'+data[i].topicName+'</a></li> ' ;
+                        var sul = '<li class="showTopic"  title="'+data[i].topicName+'" ><a>'+data[i].topicName+'</a></li> ' ;
                         var $ul = $(sul);
                         $ul.data("topicId",data[i].id);
                         $ul.data("topicName",data[i].topicName);
@@ -81,9 +81,16 @@
                     success: function (data) {
                         console.log(data);
                         $("#showMessageInfo").html("");
-                        for(var i =0; i< data.length; i++){
-                            var messageLi = ' <li class="list-group-item">'+data[i].message +   '  |  '  +  data[i].receiveTime +'</li>';
-                            $("#showMessageInfo").append(messageLi);
+                        for (var i = 0; i < data.length; i++) {
+                            //格式化日期
+                            var time = data[i].receiveTime;
+                            var d = new Date(time);
+                            var times = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                            var tr = '<tr>\n' +
+                                '        <td> ' + times + '</td> ' +
+                                '        <td>' + data[i].message + '</td> ' +
+                                '      </tr>';
+                            $("#showMessageInfo").append(tr);
                         }
                     },
                     error: function () {
@@ -131,11 +138,25 @@
                     <p id="showTopicName"></p>
                     <input type="hidden" id="showTopicId" value="">
                 </div>
-                <ul class="list-group" id="showMessageInfo">
-                    <!--<li class="list-group-item">这里展示消息内容</li>-->
-                </ul>
+
+                <div class="container">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>接收时间</th>
+                                    <th>消息体</th>
+                                </tr>
+                            </thead>
+                            <tbody  id="showMessageInfo">
+                                <!--<tr>-->
+                                    <!--<td>1</td>-->
+                                    <!--<td>2</td>-->
+                                <!--</tr>-->
+                            </tbody>
+                        </table>
+                    </div>
             </div>
-            <!--我是主要内容 end-->
         </div>
     </div>
     <a href="#top" id="goTop"><i class="fa fa-angle-up fa-3x"></i></a>
