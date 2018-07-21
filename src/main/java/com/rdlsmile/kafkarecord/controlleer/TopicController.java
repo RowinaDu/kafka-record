@@ -37,7 +37,11 @@ public class TopicController {
     @RequestMapping("/getMessageInfoList")
     @ResponseBody
     public List<MessageInfo> getMessageInfoList(Long topicInfoId) {
-        return topicMapper.findTop10MessageInfoByTopicInfoId(topicInfoId);
+        if(topicInfoId != null){
+            return topicMapper.findTop10MessageInfoByTopicInfoId(topicInfoId);
+        }else {
+            return null;
+        }
     }
 
 }

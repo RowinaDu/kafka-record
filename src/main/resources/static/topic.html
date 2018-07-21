@@ -72,7 +72,7 @@
                 topicId = $("#showTopicId").val().trim();
             }
             //alert(topicId);
-            if(topicId != null){
+            if(!(typeof topicId == "undefined" || topicId == null || topicId == "")){
                 $.ajax({
                     type: "post",
                     url: "getMessageInfoList",

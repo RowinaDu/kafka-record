@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import sun.plugin2.message.Message;
 
 import java.util.Date;
 import java.util.List;
@@ -60,7 +58,8 @@ public interface TopicMapper {
             " topic_info_id as topicInfoId, " +
             " message as message, " +
             " receive_time as receiveTime " +
-            " FROM message_info WHERE topic_info_id = #{topicInfoId} ORDER BY receive_time DESC LIMIT 0,10")
+           // " FROM message_info WHERE topic_info_id = #{topicInfoId} ORDER BY receive_time DESC LIMIT 0,10")
+            " FROM message_info WHERE topic_info_id = #{topicInfoId} ORDER BY receive_time DESC FETCH FIRST 10 ROWS ONLY")
     List<MessageInfo> findTop10MessageInfoByTopicInfoId(@Param("topicInfoId") Long topicInfoId);
 
     /*插入topicInfo*/
