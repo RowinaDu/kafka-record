@@ -1,23 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="favicon.ico" />
-    <!--jquery库-->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="favicon.ico"/>
+
     <script src="js/jquery.min.js"></script>
     <!--bootstrap库-->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <!--[if lt IE 9]>
-      <script src="js/bootstrap/html5shiv.min.js"></script>
-      <script src="js/bootstrap/respond.min.js"></script>
+    <script src="js/bootstrap/html5shiv.min.js"></script>
+    <script src="js/bootstrap/respond.min.js"></script>
     <![endif]-->
     <!--font-awesome字体库-->
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet"/>
     <!--页面加载进度条-->
-    <link href="css/pace/dataurl.css" rel="stylesheet" />
+    <link href="css/pace/dataurl.css" rel="stylesheet"/>
     <script src="js/pace/pace.min.js"></script>
     <!--jquery.hammer手势插件-->
     <script src="js/jquery.hammer/hammer.min.js"></script>
@@ -27,10 +27,17 @@
     <!--主要写的jquery拓展方法-->
     <script src="js/jquery.extend.js" type="text/javascript"></script>
     <!--主要写的css代码-->
-    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link href="css/default.css" rel="stylesheet" type="text/css"/>
     <!--主要写的js代码-->
     <script src="js/default.js" type="text/javascript"></script>
+
+    <!--jquery-ui-->
+    <script type='text/javascript' src="jquery-ui/jquery-ui.js"></script>
+    <link href="jquery-ui/jquery-ui.css" type="text/css" rel="stylesheet" media="all">
+
+
     <script type="text/javascript">
+
         $(function () {
             //alert(1);
             //首先加载topic
@@ -40,11 +47,11 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    for(var i =0; i< data.length; i++){
-                        var sul = '<li class="showTopic"  title="'+data[i].topicName+'" ><a>'+data[i].topicName+'</a></li> ' ;
+                    for (var i = 0; i < data.length; i++) {
+                        var sul = '<li class="showTopic"  title="' + data[i].topicName + '" ><a>' + data[i].topicName + '</a></li> ';
                         var $ul = $(sul);
-                        $ul.data("topicId",data[i].id);
-                        $ul.data("topicName",data[i].topicName);
+                        $ul.data("topicId", data[i].id);
+                        $ul.data("topicName", data[i].topicName);
                         $("#showTopicInfo").append($ul);
                     }
                 },
@@ -53,10 +60,10 @@
                 }
             });
             //实时刷新当前topic消息
-            setInterval("addMessageInfo()",10000);
+            setInterval("addMessageInfo()", 10000);
 
             //监听点击事件
-            $("#showTopicInfo").on("click",".showTopic" ,function(){
+            $("#showTopicInfo").on("click", ".showTopic", function () {
                 var thisTopicInfoId = $(this).data("topicId");
                 var thisTopicName = $(this).data("topicName");
                 $("#showTopicId").val(thisTopicInfoId);
@@ -67,12 +74,12 @@
         });
 
         function addMessageInfo(topicId) {
-            if(topicId == null){
+            if (topicId == null) {
                 //alert("使用页面值");
                 topicId = $("#showTopicId").val().trim();
             }
             //alert(topicId);
-            if(!(typeof topicId == "undefined" || topicId == null || topicId == "")){
+            if (!(typeof topicId == "undefined" || topicId == null || topicId == "")) {
                 $.ajax({
                     type: "post",
                     url: "getMessageInfoList",
@@ -100,66 +107,190 @@
             }
 
         }
-        
+
 
     </script>
 
     <style>
-        .showTopic:hover{
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .row .sp {
+            height: 650px;
+            margin-bottom: 10px;
+            border-bottom: 3px #eee solid;
+        }
+
+        .editor {
+            height: 300px;
+            border-right: 3px #eee solid;
+        }
+
+        @media (max-width: 939px) {
+
+            .row .sp {
+                width: 25% !important;
+
+            }
+
+        }
+
+        @media (max-width: 767px) {
+
+            .row .sp {
+                width: 25% !important;
+                height: auto !important;
+            }
+
+        }
+
+        @media (max-width: 1200px) {
+            .row .sp {
+                width: 25% !important;
+
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .row .sp {
+                width: 25% !important;
+                height: auto !important;
+            }
+
+        }
+
+        .cont {
+            width: 100%;
+        }
+
+        .inner {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100%;
+            margin-top: 55px;
+        }
+
+
+
+        .showTopic:hover {
             cursor: pointer;
         }
 
     </style>
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle show pull-left" data-target="sidebar">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                         aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="topic.html">kafka消息记录</a>
             </div>
         </div>
     </nav>
-    <div class="container-fluid all">
-        <div class="sidebar" >
-            <ul class="nav" id="showTopicInfo">
-                <!--<li><a href="">这里展示topicName</a></li>-->
-            </ul>
-        </div>
-        <div class="maincontent row">
-            <div class="col-sm-12">
-                <div class="jumbotron">
-                    <p id="showTopicName"></p>
-                    <input type="hidden" id="showTopicId" value="">
-                </div>
+    <div class="cont">
+        <div class="row">
+            <div class="col-sm-6 sp editor" style=" width: 20%">
+                <div class="inner">
 
-                <div class="container">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
-                            <thead>
+
+                    <ul class="nav" id="showTopicInfo" style=" background-color: #f1f1f1">
+
+                        <!--<li><a href="">这里展示topicName</a></li>-->
+                    </ul>
+
+
+                </div>
+            </div>
+            <div class="col-sm-6 sp" style=" width: 80%">
+                <div class="inner">
+
+                    <div class="jumbotron">
+                        <p id="showTopicName"></p>
+                        <input type="hidden" id="showTopicId" value="">
+                    </div>
+
+                    <div class="container">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
                                 <tr>
                                     <th>接收时间</th>
                                     <th>消息体</th>
                                 </tr>
-                            </thead>
-                            <tbody  id="showMessageInfo">
+                                </thead>
+                                <tbody id="showMessageInfo">
                                 <!--<tr>-->
-                                    <!--<td>1</td>-->
-                                    <!--<td>2</td>-->
+                                <!--<td>1</td>-->
+                                <!--<td>2</td>-->
                                 <!--</tr>-->
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
+
         </div>
     </div>
-    <a href="#top" id="goTop"><i class="fa fa-angle-up fa-3x"></i></a>
 </body>
+
+<script type="text/javascript">
+    var maxY = 0;  //取高度最高panel作为分割栏位置
+    $(window).bind("resize", function (event) {
+        if (this == event.target) {
+            $('.sp').removeAttr('style');
+        }
+    });
+
+
+    $('.editor').resizable({
+        handles: 'e, s',
+        minWidth: 100,
+        maxWidth: 900,
+        resize: function (event, ui) {
+            var x = ui.element.outerWidth();
+            var y = ui.element.outerHeight();
+            var ele = ui.element;
+            var factor = $(this).parent().width() - x;
+            var f2 = $(this).parent().width() * .02999;
+            $.each(ele.siblings(), function (idx, item) {
+
+                ele.siblings().eq(idx).css('height', y + 'px');
+                //ele.siblings().eq(idx).css('width',(factor-41)+'px');
+                ele.siblings().eq(idx).width((factor - f2) + 'px');
+
+            });
+        }
+    });
+
+    $('.sp:not(.editor)').resizable({
+        handles: 's',
+        resize: function (event, ui) {
+
+            var y = ui.element.outerHeight();
+            var ele = ui.element;
+            $.each(ele.siblings(), function (idx, item) {
+                ele.siblings().eq(idx).css('height', y + 'px');
+            });
+        }
+    });
+
+
+</script>
+
+
 </html>
